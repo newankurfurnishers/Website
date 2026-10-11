@@ -122,20 +122,19 @@ Every page reads through `src/lib/content.ts` and uses the existing components a
 
 Audience: non-technical shop staff on desktop and phone. Plain language, big targets, every action named for what it does ("Save changes", "Replace photo", "Publish post").
 
-- [ ] **Auth:** `/admin/login` (email + password via Supabase Auth). `src/proxy.ts` refreshes the session cookie on `/admin/*`. Every admin route and Server Action checks `is_admin()`; non-admins see a clear "This account doesn't have admin access" screen.
-- [ ] **Layout:** sidebar with Dashboard, Pages, Products, Expertise, Philosophy, Blog, Enquiries, Media, Settings. A "View site" link.
-- [ ] **Dashboard:** new enquiries count + latest 5, draft posts, quick links.
-- [ ] **Pages:** list of `page_sections` grouped by page; edit heading, body, image (pick from library or upload), button label/link, list items. Live preview link.
-- [ ] **Products:** list with drag-to-reorder and published toggle; edit name, tagline, icon (picker from `iconKeys` in `src/components/category-icon.tsx`), intro, sub-types (add/remove/reorder), element, sectors, hero image, gallery (upload many, reorder, alt text, remove), SEO title/description. Slug auto-generated from name, editable, unique.
-- [ ] **Expertise / Philosophy:** same editor pattern for sectors (incl. highlights list) and elements.
-- [ ] **Blog:** list (drafts, scheduled, published); editor with Tiptap (headings, bold/italic, lists, links, quotes, images from library); fields for slug, excerpt, cover, tags, related categories, SEO title/description, OG image with a Google result preview; Save draft / Publish now / Schedule (date-time). Store `content_json` (editor doc) and sanitised `content_html`.
-- [ ] **Enquiries:** inbox table (new/contacted/closed), filters, detail with notes, status change, click-to-call and WhatsApp buttons, CSV export.
-- [ ] **Media:** library grid; upload compresses in the browser to WebP (max 2000px), uploads to the `media` bucket, records width/height and requires alt text. Show where an image is used before allowing delete.
-- [ ] **Settings:** business name, tagline, phones, WhatsApp, email, address, map embed, social links, default SEO title/description.
-- [ ] **After every save:** `updateTag("content")` (Server Action) so the change is live on the next page load; show "Saved. Live on the site now."
-- [ ] Empty states that say what to do next ("No posts yet. Write your first post").
-
-### Phase 4: launch
+- [x] **Auth:** `/admin/login` (email + password via Supabase Auth). `src/proxy.ts` refreshes the session cookie on `/admin/*`. Every admin route and Server Action checks `is_admin()`; non-admins see a clear "This account doesn't have admin access" screen.
+- [x] **Layout:** sidebar with Dashboard, Pages, Products, Expertise, Philosophy, Blog, Enquiries, Media, Settings. A "View site" link.
+- [x] **Dashboard:** new enquiries count + latest 5, draft posts, quick links.
+- [x] **Pages:** list of `page_sections` grouped by page; edit heading, body, image (pick from library or upload), button label/link, list items. Live preview link.
+- [x] **Products:** list with drag-to-reorder and published toggle; edit name, tagline, icon (picker from `iconKeys` in `src/components/category-icon.tsx`), intro, sub-types (add/remove/reorder), element, sectors, hero image, gallery (upload many, reorder, alt text, remove), SEO title/description. Slug auto-generated from name, editable, unique.
+- [x] **Expertise / Philosophy:** same editor pattern for sectors (incl. highlights list) and elements.
+- [x] **Blog:** list (drafts, scheduled, published); editor with Tiptap (headings, bold/italic, lists, links, quotes, images from library); fields for slug, excerpt, cover, tags, related categories, SEO title/description, OG image with a Google result preview; Save draft / Publish now / Schedule (date-time). Store `content_json` (editor doc) and sanitised `content_html`.
+- [x] **Enquiries:** inbox table (new/contacted/closed), filters, detail with notes, status change, click-to-call and WhatsApp buttons, CSV export.
+- [x] **Media:** library grid; upload compresses in the browser to WebP (max 2000px), uploads to the `media` bucket, records width/height and requires alt text. Show where an image is used before allowing delete.
+- [x] **Settings:** business name, tagline, phones, WhatsApp, email, address, map embed, social links, default SEO title/description.
+- [x] **After every save:** `updateTag("content")` (Server Action) so the change is live on the next page load; show "Saved. Live on the site now."
+- [x] Empty states that say what to do next ("No posts yet. Write your first post").
+ launch
 
 - [ ] Point `newankurfurnishers.in` + `www` to Vercel; redirect old URLs that rank (check Google Search Console) to the new equivalents.
 - [ ] Vercel Analytics or Plausible; Google Search Console + submit sitemap; link Google Business Profile.
