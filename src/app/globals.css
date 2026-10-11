@@ -133,6 +133,34 @@
     text-decoration-color: currentColor;
   }
 
+  .admin-card {
+    display: block;
+    border-radius: 0.875rem;
+    background: #fff;
+    padding: 1.25rem 1.4rem;
+    box-shadow: 0 1px 0 rgba(41, 45, 40, 0.06);
+    transition: box-shadow 0.2s;
+  }
+  .admin-card:hover {
+    box-shadow: 0 6px 24px rgba(41, 45, 40, 0.1);
+  }
+
+  /* Admin form controls */
+  .admin-input {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--color-forest) 20%, transparent);
+    background: #fff;
+    padding: 0.55rem 0.85rem;
+    font-size: 1rem;
+    color: var(--color-forest);
+  }
+  .admin-input:focus-visible {
+    outline: none;
+    border-color: var(--color-forest);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-caramel) 35%, transparent);
+  }
+
   /* Rendered blog post HTML (sanitised at save time) */
   .prose-brand {
     font-size: 1.125rem;

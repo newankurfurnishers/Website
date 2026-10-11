@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useActionState } from "react";
-import { type EnquiryState, submitEnquiry } from "@/app/contact/actions";
+import { type EnquiryState, submitEnquiry } from "@/app/(site)/contact/actions";
 
 const initial: EnquiryState = { status: "idle" };
 
