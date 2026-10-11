@@ -1,7 +1,7 @@
 // Launch content, taken from the New Ankur Furnishers brochure.
 // Used to seed Supabase (scripts/generate-seed.ts) and as a fallback when
 // Supabase env vars are not configured (local preview).
-import type { Category, NatureElement, PageSection, Sector, SiteSettings } from "./types";
+import type { Category, NatureElement, PageSection, Sector, SiteSettings, Testimonial } from "./types";
 
 const img = (name: string) => `/images/brochure/${name}.webp`;
 
@@ -280,6 +280,9 @@ export const categories: Category[] = [
     ["gym-mats", "Gym with rubber mats and turf lanes"],
     [["gym-mats", "Gym rubber flooring"]]),
 ];
+
+// No named testimonials in the launch brochure; staff add real ones via the admin.
+export const testimonials: Testimonial[] = [];
 
 export const sections: PageSection[] = [
   {

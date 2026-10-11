@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export function MobileNav({ items }: { items: { href: string; label: string }[] }) {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
+  // Read the path client-side (after mount) rather than with usePathname, so the
+  // header stays part of the static shell under Cache Components.
+  const [pathname, setPathname] = useState<string | null>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -19,13 +20,18 @@ export function MobileNav({ items }: { items: { href: string; label: string }[] 
     };
   }, [open]);
 
+  const toggle = () => {
+    setPathname(window.location.pathname);
+    setOpen((v) => !v);
+  };
+
   return (
     <div className="lg:hidden">
       <button
         type="button"
         aria-expanded={open}
         aria-controls="mobile-menu"
-        onClick={() => setOpen((v) => !v)}
+        onClick={toggle}
         className="grid size-11 place-items-center rounded-full text-forest hover:bg-forest/5"
       >
         <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>

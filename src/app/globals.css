@@ -132,6 +132,58 @@
   .link-underline:hover {
     text-decoration-color: currentColor;
   }
+
+  /* Rendered blog post HTML (sanitised at save time) */
+  .prose-brand {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: color-mix(in srgb, var(--color-forest) 88%, transparent);
+  }
+  .prose-brand > * + * {
+    margin-top: 1.25rem;
+  }
+  .prose-brand h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    margin-top: 2.5rem;
+  }
+  .prose-brand h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    margin-top: 2rem;
+  }
+  .prose-brand a {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  }
+  .prose-brand ul,
+  .prose-brand ol {
+    padding-left: 1.4rem;
+  }
+  .prose-brand ul {
+    list-style: disc;
+  }
+  .prose-brand ol {
+    list-style: decimal;
+  }
+  .prose-brand li + li {
+    margin-top: 0.4rem;
+  }
+  .prose-brand blockquote {
+    border-left: 3px solid var(--color-caramel);
+    padding-left: 1.25rem;
+    font-style: italic;
+    color: var(--color-walnut);
+  }
+  .prose-brand img {
+    border-radius: 1rem;
+    width: 100%;
+    height: auto;
+  }
+  .prose-brand :is(h2, h3):first-child {
+    margin-top: 0;
+  }
 }
 
 /* The page's one orchestrated moment: the hero photograph settles into place */

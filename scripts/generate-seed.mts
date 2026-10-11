@@ -1,7 +1,7 @@
 // Generates supabase/seed.sql from src/content/seed.ts
 // Run: npm run seed:generate
 import { writeFileSync } from "node:fs";
-import { categories, elements, sections, sectors, settings } from "../src/content/seed.ts";
+import { categories, elements, sections, sectors, settings, testimonials } from "../src/content/seed.ts";
 
 const q = (v: unknown): string => {
   if (v === null || v === undefined) return "null";
@@ -56,6 +56,13 @@ on conflict (slug) do nothing;`,
 for (const p of sections) {
   out.push(
     `insert into public.page_sections (page, key, label, eyebrow, heading, body, image_url, image_alt, cta_label, cta_href, items, sort) values (${[p.page, p.key, p.label, p.eyebrow, p.heading, p.body, p.image_url, p.image_alt, p.cta_label, p.cta_href].map(q).join(", ")}, ${json(p.items)}, ${p.sort}) on conflict (page, key) do nothing;`,
+  );
+}
+
+out.push("");
+for (const t of testimonials) {
+  out.push(
+    `insert into public.testimonials (name, context, quote, sort) values (${[t.name, t.context, t.quote].map(q).join(", ")}, ${t.sort}) on conflict do nothing;`,
   );
 }
 

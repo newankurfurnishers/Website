@@ -57,6 +57,34 @@ export type Sector = {
   seo_description?: string | null;
 };
 
+export type Testimonial = {
+  name: string;
+  context: string | null;
+  quote: string;
+  sort: number;
+};
+
+export type Tag = { slug: string; name: string };
+
+export type PostSummary = {
+  slug: string;
+  title: string;
+  excerpt: string | null;
+  cover_image_url: string | null;
+  cover_image_alt: string | null;
+  author: string;
+  published_at: string;
+  tags: Tag[];
+  categories: string[]; // category slugs
+};
+
+export type Post = PostSummary & {
+  content_html: string;
+  seo_title: string | null;
+  seo_description: string | null;
+  og_image_url: string | null;
+};
+
 export type CategoryImage = { url: string; alt: string };
 
 export type Category = {
