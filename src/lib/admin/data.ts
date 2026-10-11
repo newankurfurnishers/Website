@@ -128,3 +128,70 @@ export async function getSectorOptions(): Promise<{ slug: string; name: string }
   if (error) throw error;
   return (data ?? []) as { slug: string; name: string }[];
 }
+
+// --- Expertise (sectors) ---------------------------------------------------
+
+export type Highlight = { title: string; text: string };
+
+export type AdminSector = {
+  id: string;
+  slug: string;
+  name: string;
+  tagline: string | null;
+  summary: string | null;
+  body: string | null;
+  highlights: Highlight[];
+  image_url: string | null;
+  image_alt: string | null;
+  sort: number;
+  published: boolean;
+  seo_title: string | null;
+  seo_description: string | null;
+};
+
+const SECTOR_SELECT =
+  "id,slug,name,tagline,summary,body,highlights,image_url,image_alt,sort,published,seo_title,seo_description";
+
+export async function getAdminSectors(): Promise<AdminSector[]> {
+  const supabase = await createSessionClient();
+  const { data, error } = await supabase.from("sectors").select(SECTOR_SELECT).order("sort");
+  if (error) throw error;
+  return (data ?? []) as AdminSector[];
+}
+
+export async function getAdminSector(id: string): Promise<AdminSector | null> {
+  const supabase = await createSessionClient();
+  const { data, error } = await supabase.from("sectors").select(SECTOR_SELECT).eq("id", id).maybeSingle();
+  if (error) throw error;
+  return (data as AdminSector | null) ?? null;
+}
+
+// --- Philosophy (elements) -------------------------------------------------
+
+export type AdminElement = {
+  id: string;
+  slug: string;
+  name: string;
+  sanskrit: string | null;
+  tagline: string | null;
+  description: string | null;
+  image_url: string | null;
+  image_alt: string | null;
+  sort: number;
+};
+
+const ELEMENT_SELECT = "id,slug,name,sanskrit,tagline,description,image_url,image_alt,sort";
+
+export async function getAdminElements(): Promise<AdminElement[]> {
+  const supabase = await createSessionClient();
+  const { data, error } = await supabase.from("elements").select(ELEMENT_SELECT).order("sort");
+  if (error) throw error;
+  return (data ?? []) as AdminElement[];
+}
+
+export async function getAdminElement(id: string): Promise<AdminElement | null> {
+  const supabase = await createSessionClient();
+  const { data, error } = await supabase.from("elements").select(ELEMENT_SELECT).eq("id", id).maybeSingle();
+  if (error) throw error;
+  return (data as AdminElement | null) ?? null;
+}
