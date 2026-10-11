@@ -214,6 +214,19 @@
   }
 }
 
+/* Expertise gallery cards: scroll-reveal entrance (motion only) */
+@layer components {
+  .exp-card {
+    transition:
+      opacity 0.6s var(--ease-out-soft),
+      transform 0.6s var(--ease-out-soft);
+  }
+  .exp-card.exp-pre {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+}
+
 /* The page's one orchestrated moment: the hero photograph settles into place */
 @keyframes settle {
   from {

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ExpertiseGallery } from "@/components/expertise-gallery";
 import { SignColumn } from "@/components/sign-column";
 import { getCategories, getElements, getSections, getSectors, getSettings } from "@/lib/content";
 import { telHref, whatsappHref } from "@/lib/format";
@@ -118,36 +119,17 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Sectors */}
-      <section className="border-t border-forest/10">
+      {/* Expertise & domains */}
+      <section className="bg-forest-deep text-sand">
         <div className="container-site py-20 md:py-28">
           <div className="max-w-2xl">
-            <h2 className="text-[clamp(2.1rem,4vw,3.4rem)]">{secHead?.heading}</h2>
-            {secHead?.body && <p className="mt-4 text-lg text-forest/75">{secHead.body}</p>}
+            {secHead?.eyebrow && <p className="text-olive">{secHead.eyebrow}</p>}
+            <h2 className="mt-3 text-[clamp(2.1rem,4vw,3.4rem)] text-sand">{secHead?.heading}</h2>
+            {secHead?.body && <p className="mt-4 text-lg text-sand/75">{secHead.body}</p>}
           </div>
-          <ul className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-            {sectors.map((sec) => (
-              <li key={sec.slug}>
-                <Link href={`/expertise/${sec.slug}`} className="group block">
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-t-[11rem] bg-sand">
-                    <Image
-                      src={sec.image_url}
-                      alt={sec.image_alt}
-                      fill
-                      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-                      className="object-cover transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.03]"
-                    />
-                  </div>
-                  <h3 className="mt-5 text-2xl group-hover:underline group-hover:decoration-1 group-hover:underline-offset-4">
-                    {sec.name}
-                  </h3>
-                  <p className="mt-1 text-forest/70">{sec.tagline}</p>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <ExpertiseGallery sectors={sectors} />
           {secHead?.cta_href && (
-            <Link href={secHead.cta_href} className="btn btn-dark mt-14">
+            <Link href={secHead.cta_href} className="btn btn-solid mt-14">
               {secHead.cta_label}
             </Link>
           )}
