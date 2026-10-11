@@ -195,3 +195,61 @@ export async function getAdminElement(id: string): Promise<AdminElement | null> 
   if (error) throw error;
   return (data as AdminElement | null) ?? null;
 }
+
+// --- Pages (page_sections) -------------------------------------------------
+
+export type AdminSection = {
+  id: string;
+  page: string;
+  key: string;
+  label: string;
+  eyebrow: string | null;
+  heading: string | null;
+  body: string | null;
+  image_url: string | null;
+  image_alt: string | null;
+  cta_label: string | null;
+  cta_href: string | null;
+  items: { title: string; text: string }[];
+  sort: number;
+  published: boolean;
+};
+
+const SECTION_SELECT =
+  "id,page,key,label,eyebrow,heading,body,image_url,image_alt,cta_label,cta_href,items,sort,published";
+
+export async function getAdminSections(): Promise<AdminSection[]> {
+  const supabase = await createSessionClient();
+  const { data, error } = await supabase.from("page_sections").select(SECTION_SELECT).order("page").order("sort");
+  if (error) throw error;
+  return (data ?? []) as AdminSection[];
+}
+
+export async function getAdminSection(id: string): Promise<AdminSection | null> {
+  const supabase = await createSessionClient();
+  const { data, error } = await supabase.from("page_sections").select(SECTION_SELECT).eq("id", id).maybeSingle();
+  if (error) throw error;
+  return (data as AdminSection | null) ?? null;
+}
+
+// --- Media -----------------------------------------------------------------
+
+export type MediaItem = {
+  id: string;
+  path: string;
+  url: string;
+  alt: string;
+  width: number | null;
+  height: number | null;
+  created_at: string;
+};
+
+export async function getMedia(): Promise<MediaItem[]> {
+  const supabase = await createSessionClient();
+  const { data, error } = await supabase
+    .from("media")
+    .select("id,path,url,alt,width,height,created_at")
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as MediaItem[];
+}
