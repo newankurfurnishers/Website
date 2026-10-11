@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ExpertiseGallery } from "@/components/expertise-gallery";
-import { SignColumn } from "@/components/sign-column";
+import { ProductCarousel } from "@/components/product-carousel";
 import { getCategories, getElements, getSections, getSectors, getSettings } from "@/lib/content";
 import { telHref, whatsappHref } from "@/lib/format";
 
@@ -14,7 +14,6 @@ export default async function HomePage() {
     getSettings(),
   ]);
   const { hero, story, philosophy, categories: catHead, sectors: secHead, cta } = s;
-  const half = Math.ceil(categories.length / 2);
 
   return (
     <>
@@ -103,19 +102,21 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Categories: the showroom signage column */}
+      {/* Products: interactive category carousel */}
       <section className="container-site py-20 md:py-28">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <h2 className="max-w-[18ch] text-[clamp(2.1rem,4vw,3.4rem)]">{catHead?.heading}</h2>
+          <div>
+            {catHead?.eyebrow && <p className="text-walnut">{catHead.eyebrow}</p>}
+            <h2 className="mt-2 max-w-[18ch] text-[clamp(2.1rem,4vw,3.4rem)]">{catHead?.heading}</h2>
+          </div>
           {catHead?.cta_href && (
             <Link href={catHead.cta_href} className="link-underline font-medium">
               {catHead.cta_label}
             </Link>
           )}
         </div>
-        <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:gap-10">
-          <SignColumn items={categories.slice(0, half)} />
-          <SignColumn items={categories.slice(half)} />
+        <div className="mt-12">
+          <ProductCarousel categories={categories} />
         </div>
       </section>
 
