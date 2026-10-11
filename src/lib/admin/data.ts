@@ -253,3 +253,78 @@ export async function getMedia(): Promise<MediaItem[]> {
   if (error) throw error;
   return (data ?? []) as MediaItem[];
 }
+
+// --- Blog (posts) ----------------------------------------------------------
+
+export type AdminPostSummary = {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string | null;
+  status: "draft" | "published";
+  published_at: string | null;
+};
+
+export type AdminPost = AdminPostSummary & {
+  content_html: string;
+  content_json: unknown;
+  cover_image_url: string | null;
+  cover_image_alt: string | null;
+  author: string;
+  seo_title: string | null;
+  seo_description: string | null;
+  og_image_url: string | null;
+  tags: string[]; // tag names
+  categories: string[]; // category slugs
+};
+
+export async function getAdminPosts(): Promise<AdminPostSummary[]> {
+  const supabase = await createSessionClient();
+  const { data, error } = await supabase
+    .from("posts")
+    .select("id,slug,title,excerpt,status,published_at")
+    .order("published_at", { ascending: false, nullsFirst: true })
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as AdminPostSummary[];
+}
+
+type AdminPostRow = Omit<AdminPost, "tags" | "categories"> & {
+  post_tags: { tags: { name: string } | null }[];
+  post_categories: { categories: { slug: string } | null }[];
+};
+
+export async function getAdminPost(id: string): Promise<AdminPost | null> {
+  const supabase = await createSessionClient();
+  const { data, error } = await supabase
+    .from("posts")
+    .select(
+      "id,slug,title,excerpt,content_html,content_json,cover_image_url,cover_image_alt,author,status,published_at,seo_title,seo_description,og_image_url," +
+        "post_tags(tags(name)), post_categories(categories(slug))",
+    )
+    .eq("id", id)
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) return null;
+  const row = data as unknown as AdminPostRow;
+  const { post_tags, post_categories, ...rest } = row;
+  return {
+    ...rest,
+    tags: post_tags.flatMap((pt) => (pt.tags ? [pt.tags.name] : [])),
+    categories: post_categories.flatMap((pc) => (pc.categories ? [pc.categories.slug] : [])),
+  };
+}
+
+export async function getAdminTags(): Promise<{ slug: string; name: string }[]> {
+  const supabase = await createSessionClient();
+  const { data, error } = await supabase.from("tags").select("slug,name").order("name");
+  if (error) throw error;
+  return (data ?? []) as { slug: string; name: string }[];
+}
+
+export async function getCategoryOptions(): Promise<{ slug: string; name: string }[]> {
+  const supabase = await createSessionClient();
+  const { data, error } = await supabase.from("categories").select("slug,name").order("sort");
+  if (error) throw error;
+  return (data ?? []) as { slug: string; name: string }[];
+}
