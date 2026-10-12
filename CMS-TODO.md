@@ -31,7 +31,9 @@ Status legend: ⬜ not wired · ✅ wired into CMS
   - CMS plan: extend the `elements` table (add subtitle, principle, in_design,
     story_label, story_text, visual_language, lead, a second image) or a related
     structure; add a framework-cards store; swap in these fields in the admin
-    Philosophy editor. Note the home-page five pills still read the existing
-    `elements` rows (name/sanskrit/tagline/image), so keep those intact.
+    Philosophy editor. The home-page philosophy accordion
+    (`src/components/philosophy-accordion.tsx`) reads the `elements` rows for
+    name/sanskrit/tagline but uses the hardcoded `public/images/elements/*.webp`
+    images via a slug→image map — wire those images in at the same time.
 
 <!-- Append new items below as changes are made. -->

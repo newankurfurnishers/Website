@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ExpertiseGallery } from "@/components/expertise-gallery";
+import { PhilosophyAccordion } from "@/components/philosophy-accordion";
 import { ProductCarousel } from "@/components/product-carousel";
 import { getCategories, getElements, getSections, getSectors, getSettings } from "@/lib/content";
 import { telHref, whatsappHref } from "@/lib/format";
@@ -76,29 +77,7 @@ export default async function HomePage() {
               </Link>
             )}
           </div>
-          <ul className="flex justify-center lg:justify-end" aria-label="The five elements">
-            {elements.map((el, i) => (
-              <li key={el.slug} className={i === 0 ? "" : "-ml-4 sm:-ml-6"} style={{ zIndex: i }}>
-                <Link
-                  href={`/philosophy#${el.slug}`}
-                  className="group relative block h-[19rem] w-[4.6rem] overflow-hidden rounded-full ring-[5px] ring-forest sm:h-[26rem] sm:w-[7.5rem] lg:h-[30rem] lg:w-[8.5rem]"
-                >
-                  <Image
-                    src={el.image_url}
-                    alt=""
-                    fill
-                    sizes="(min-width: 640px) 136px, 74px"
-                    className="object-cover transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-105"
-                  />
-                  <span className="absolute inset-0 bg-gradient-to-t from-forest/90 via-forest/20 to-transparent" />
-                  <span className="absolute bottom-7 left-1/2 block -translate-x-1/2 rotate-180 font-display text-xl text-sand [writing-mode:vertical-rl] sm:text-2xl">
-                    {el.name}
-                    <span className="sr-only"> ({el.sanskrit}): {el.tagline}</span>
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <PhilosophyAccordion elements={elements} />
         </div>
       </section>
 
