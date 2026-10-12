@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 export function MobileNav({ items }: { items: { href: string; label: string }[] }) {
   const [open, setOpen] = useState(false);
@@ -39,28 +40,33 @@ export function MobileNav({ items }: { items: { href: string; label: string }[] 
           {open ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M4 8h16M4 16h16" />}
         </svg>
       </button>
-      {open && (
-        <nav
-          id="mobile-menu"
-          aria-label="Main"
-          className="fixed inset-x-0 top-[4.5rem] bottom-0 z-40 overflow-y-auto bg-forest px-6 py-8 text-sand"
-        >
-          <ul className="space-y-1">
-            {items.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  aria-current={pathname === item.href ? "page" : undefined}
-                  onClick={() => setOpen(false)}
-                  className="block py-3 font-display text-3xl aria-[current=page]:text-olive"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
+      {open &&
+        typeof document !== "undefined" &&
+        createPortal(
+          // Rendered on <body> (not inside the backdrop-blurred header) so the
+          // fixed panel covers the viewport instead of being clipped to the header.
+          <nav
+            id="mobile-menu"
+            aria-label="Main"
+            className="fixed inset-x-0 top-[4.5rem] bottom-0 z-40 overflow-y-auto bg-forest px-6 py-8 text-sand lg:hidden"
+          >
+            <ul className="space-y-1">
+              {items.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={pathname === item.href ? "page" : undefined}
+                    onClick={() => setOpen(false)}
+                    className="block py-3 font-display text-3xl aria-[current=page]:text-olive"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>,
+          document.body,
+        )}
     </div>
   );
 }
