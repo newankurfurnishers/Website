@@ -1,6 +1,7 @@
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SiteJsonLd } from "@/components/site-jsonld";
+import { StickyCta } from "@/components/sticky-cta";
 
 // Public site chrome. The admin area (/admin) has its own layout, so the
 // header, footer and business JSON-LD only wrap the brochure pages.
@@ -19,6 +20,7 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
         {children}
       </main>
       <SiteFooter />
+      <StickyCta />
     </>
   );
 }

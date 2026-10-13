@@ -78,11 +78,20 @@ export async function SiteFooter() {
         </nav>
       </div>
       <div className="border-t border-sand/15">
-        <div className="container-site flex flex-col gap-2 py-6 text-sm text-sand/60 sm:flex-row sm:justify-between">
+        <div className="container-site flex flex-col gap-3 py-6 text-sm text-sand/60 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {settings.business_name}
           </p>
-          <p>{settings.tagline}</p>
+          <nav aria-label="Legal" className="flex flex-wrap gap-x-5 gap-y-2">
+            <Link href="/privacy" className="hover:text-sand">
+              Privacy
+            </Link>
+            <Link href="/terms" className="hover:text-sand">
+              Terms
+            </Link>
+            <span className="hidden text-sand/40 sm:inline">·</span>
+            <span>{settings.tagline}</span>
+          </nav>
         </div>
       </div>
     </footer>

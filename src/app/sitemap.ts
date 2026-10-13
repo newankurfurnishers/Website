@@ -6,7 +6,7 @@ const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.newankurfurnishers
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [categories, sectors, posts] = await Promise.all([getCategories(), getSectors(), getPosts()]);
 
-  const staticPaths = ["", "/philosophy", "/expertise", "/products", "/blog", "/about", "/contact"];
+  const staticPaths = ["", "/philosophy", "/expertise", "/products", "/blog", "/about", "/contact", "/privacy", "/terms"];
 
   return [
     ...staticPaths.map((p) => ({

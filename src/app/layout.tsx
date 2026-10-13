@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { getSettings } from "@/lib/content";
@@ -34,7 +35,10 @@ export const viewport: Viewport = { themeColor: "#292d28" };
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-IN" className={`${marcellus.variable} ${jost.variable} antialiased`}>
-      <body className="flex min-h-dvh flex-col">{children}</body>
+      <body className="flex min-h-dvh flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

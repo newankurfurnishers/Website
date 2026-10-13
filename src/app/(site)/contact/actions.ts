@@ -1,6 +1,7 @@
 "use server";
 
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 import { createPublicClient } from "@/lib/supabase/public";
 
@@ -72,7 +73,7 @@ async function notifyByEmail(e: {
 export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Promise<EnquiryState> {
   // Honeypot: real visitors leave this hidden field empty.
   if ((formData.get("company") as string)?.trim()) {
-    return { status: "success", message: "Thanks, we'll call you within one working day." };
+    redirect("/thank-you");
   }
 
   const raw = {
@@ -124,5 +125,5 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
   }
 
   await notifyByEmail(data);
-  return { status: "success", message: "Thanks, we'll call you within one working day." };
+  redirect("/thank-you");
 }
