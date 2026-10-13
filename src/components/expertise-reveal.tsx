@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Sector } from "@/content/types";
 
-const CLIPS = ["clip-grid", "clip-mosaic", "clip-bars"];
+const CLIPS = ["clip-grid", "clip-mosaic", "clip-panels"];
 
 export function ExpertiseReveal({ sectors }: { sectors: Sector[] }) {
   const items = sectors.map((s, i) => ({
@@ -73,17 +73,15 @@ export function ExpertiseReveal({ sectors }: { sectors: Sector[] }) {
                 className="group flex items-start gap-4 sm:gap-6"
               >
                 <span
-                  className={`mt-2 font-display text-2xl transition-all duration-500 ${
-                    active === i ? "scale-110 text-caramel" : "text-forest/30"
+                  className={`mt-1.5 font-display text-lg transition-all duration-500 ${
+                    active === i ? "text-caramel" : "text-forest/35"
                   }`}
                 >
                   {item.num}
                 </span>
                 <span
-                  className={`font-sans text-4xl font-bold uppercase leading-[0.95] tracking-tight transition-all duration-500 sm:text-5xl ${
-                    active === i
-                      ? "translate-x-1 text-forest opacity-100"
-                      : "text-transparent opacity-80 [-webkit-text-stroke:1.2px_rgba(41,45,40,0.35)]"
+                  className={`font-sans text-2xl font-semibold uppercase leading-tight tracking-tight transition-all duration-500 sm:text-[2rem] ${
+                    active === i ? "translate-x-1 text-forest" : "text-forest/30"
                   }`}
                 >
                   {item.name}
@@ -113,11 +111,11 @@ export function ExpertiseReveal({ sectors }: { sectors: Sector[] }) {
               <rect className="path" x="370" y="180" width="110" height="160" rx="12" />
               <rect className="path" x="240" y="360" width="240" height="120" rx="12" />
             </clipPath>
-            {/* soft stacked bars */}
-            <clipPath id="clip-bars">
-              <path className="path" d="M459.2,196.2H40.8v-35c0-47.5,38.5-86,86-86h246.5c47.5,0,86,38.5,86,86V196.2z" />
-              <path className="path" d="M460.3,336.3H39.7c-17.2,0-31.1-13.9-31.1-31.1v-31.5c0-17.2,13.9-31.1,31.1-31.1h420.7c17.2,0,31.1,13.9,31.1,31.1v31.5C491.4,322.4,477.5,336.3,460.3,336.3z" />
-              <path className="path" d="M441.9,424.9H58.1c-9.6,0-17.3-7.8-17.3-17.3v-37.4h418.5v37.4C459.2,417.1,451.5,424.9,441.9,424.9z" />
+            {/* vertical panels */}
+            <clipPath id="clip-panels">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <rect key={i} className="path" x={20 + i * 120} y="20" width="100" height="460" rx="12" />
+              ))}
             </clipPath>
           </defs>
           <g ref={groupRef} clipPath={`url(#${items[0]?.clipId})`}>
