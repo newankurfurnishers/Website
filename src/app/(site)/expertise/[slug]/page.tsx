@@ -19,7 +19,7 @@ export async function generateMetadata({
   const sector = (await getSectors()).find((s) => s.slug === slug);
   if (!sector) return {};
   return pageMetadata({
-    title: sector.seo_title ?? `${sector.name} furnishings`,
+    title: sector.seo_title ?? (/furnish/i.test(sector.name) ? sector.name : `${sector.name} furnishings`),
     description: sector.seo_description ?? sector.summary,
     path: `/expertise/${sector.slug}`,
     image: sector.image_url,
