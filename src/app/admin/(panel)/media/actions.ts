@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath, updateTag } from "next/cache";
+import { runMediaCleanup } from "@/lib/admin/media-cleanup";
 import { getAdminClient } from "@/lib/supabase/admin";
 
 export type MediaActionState = { status: "idle" | "success" | "error"; message?: string; usage?: string[] };
@@ -42,6 +43,24 @@ export async function updateMediaAlt(id: string, alt: string): Promise<MediaActi
   if (error) return { status: "error", message: "Couldn't save." };
   revalidatePath("/admin/media");
   return { status: "success" };
+}
+
+/**
+ * Delete every uploaded file that is no longer referenced anywhere on the site
+ * (e.g. images left behind when a hero/gallery/section image was replaced).
+ * Files uploaded in the last hour are left alone so a fresh library upload that
+ * hasn't been placed on a page yet is not swept away.
+ */
+export async function cleanupUnusedMedia(): Promise<MediaActionState> {
+  const supabase = await getAdminClient();
+  if (!supabase) return { status: "error", message: "You don't have permission to do that." };
+  const removed = await runMediaCleanup(supabase, 1);
+  updateTag("content");
+  revalidatePath("/admin/media");
+  return {
+    status: "success",
+    message: removed > 0 ? `Freed ${removed} unused file${removed === 1 ? "" : "s"}.` : "No unused files to remove.",
+  };
 }
 
 export async function deleteMedia(id: string, path: string, url: string): Promise<MediaActionState> {

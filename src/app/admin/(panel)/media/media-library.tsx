@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
 import { uploadImageFile } from "@/components/admin/image-uploader";
 import type { MediaItem } from "@/lib/admin/data";
-import { deleteMedia, updateMediaAlt } from "./actions";
+import { cleanupUnusedMedia, deleteMedia, updateMediaAlt } from "./actions";
 
 export function MediaLibrary({ media }: { media: MediaItem[] }) {
   const router = useRouter();
@@ -14,6 +14,7 @@ export function MediaLibrary({ media }: { media: MediaItem[] }) {
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const [notice, setNotice] = useState<{ id: string; message: string; usage?: string[] } | null>(null);
+  const [cleanupMsg, setCleanupMsg] = useState<string | null>(null);
 
   const upload = async (files: FileList | null) => {
     if (!files || files.length === 0) return;
@@ -32,6 +33,16 @@ export function MediaLibrary({ media }: { media: MediaItem[] }) {
   const saveAlt = (id: string, alt: string) => {
     startTransition(async () => {
       await updateMediaAlt(id, alt);
+    });
+  };
+
+  const cleanup = () => {
+    if (!confirm("Remove every uploaded image not used anywhere on the site? This can't be undone.")) return;
+    setCleanupMsg(null);
+    startTransition(async () => {
+      const res = await cleanupUnusedMedia();
+      setCleanupMsg(res.message ?? null);
+      if (res.status === "success") router.refresh();
     });
   };
 
@@ -56,8 +67,18 @@ export function MediaLibrary({ media }: { media: MediaItem[] }) {
         </button>
         <span className="text-sm text-forest/55">Compressed to WebP automatically.</span>
         <input ref={inputRef} type="file" accept="image/*" multiple hidden onChange={(e) => upload(e.target.files)} />
+        <button
+          type="button"
+          onClick={cleanup}
+          disabled={pending}
+          className="btn btn-line ml-auto text-forest disabled:opacity-60"
+          title="Delete uploaded images that aren't used anywhere, to free up storage"
+        >
+          Remove unused files
+        </button>
       </div>
       {uploadError && <p className="mt-2 text-sm text-walnut">{uploadError}</p>}
+      {cleanupMsg && <p className="mt-2 text-sm text-forest/70">{cleanupMsg}</p>}
 
       {media.length === 0 ? (
         <p className="mt-6 rounded-xl bg-white px-5 py-10 text-center text-forest/60">

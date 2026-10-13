@@ -32,3 +32,17 @@ it runs, staff can edit everything in the admin.
 ## Intentionally left in code
 
 - Legal pages (Privacy, Terms, Thank-you) — static boilerplate.
+
+## Housekeeping (storage + keeping Supabase awake)
+
+- **Free unused storage** — *Media → "Remove unused files"* deletes any uploaded
+  image not used anywhere on the site (e.g. an old hero/gallery image left behind
+  after a replace). Files uploaded in the last hour are kept. Replaced files keep
+  working until you run this (or the daily cron below sweeps them after 7 days).
+- **Keep Supabase from pausing** — a Vercel Cron (`vercel.json`) calls
+  `/api/keep-alive` once a day, which pings the database so the free-tier project
+  isn't paused for inactivity. No setup needed; it runs after the next deploy.
+  - *Optional:* set **`CRON_SECRET`** (Vercel → Settings → Environment Variables)
+    to a long random string so only Vercel's cron can call the route. If you also
+    keep **`SUPABASE_SERVICE_ROLE_KEY`** set, the daily cron additionally sweeps
+    unused uploads (7-day grace) so storage is reclaimed automatically.
