@@ -69,3 +69,36 @@ for (const t of testimonials) {
 out.push("", "commit;", "");
 writeFileSync(new URL("../supabase/seed.sql", import.meta.url), out.join("\n"));
 console.log("Wrote supabase/seed.sql");
+
+// ---------------------------------------------------------------------------
+// content-update.sql: push edited launch copy to an ALREADY-seeded database.
+// seed.sql only inserts (on conflict do nothing), so run this to refresh text.
+// ---------------------------------------------------------------------------
+const upd: string[] = [
+  "-- Refresh launch copy on an already-seeded database. Safe to re-run.",
+  "-- Run in Supabase → SQL Editor after editing src/content/seed.ts.",
+  "begin;",
+  "",
+  `update public.site_settings set seo_title = ${q(settings.seo_title)}, seo_description = ${q(settings.seo_description)}, tagline = ${q(settings.tagline)} where id = 1;`,
+  "",
+];
+for (const s of sectors) {
+  upd.push(
+    `update public.sectors set name = ${q(s.name)}, tagline = ${q(s.tagline)}, summary = ${q(s.summary)}, highlights = ${json(s.highlights)} where slug = ${q(s.slug)};`,
+  );
+}
+upd.push("");
+for (const cat of categories) {
+  upd.push(
+    `update public.categories set name = ${q(cat.name)}, tagline = ${q(cat.tagline)}, intro = ${q(cat.intro)}, subtypes = ${arr(cat.subtypes)} where slug = ${q(cat.slug)};`,
+  );
+}
+upd.push("");
+for (const p of sections) {
+  upd.push(
+    `update public.page_sections set eyebrow = ${q(p.eyebrow)}, heading = ${q(p.heading)}, body = ${q(p.body)}, cta_label = ${q(p.cta_label)}, items = ${json(p.items)} where page = ${q(p.page)} and key = ${q(p.key)};`,
+  );
+}
+upd.push("", "commit;", "");
+writeFileSync(new URL("../supabase/content-update.sql", import.meta.url), upd.join("\n"));
+console.log("Wrote supabase/content-update.sql");

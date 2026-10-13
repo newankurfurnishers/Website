@@ -22,11 +22,12 @@ export default async function ProductsPage() {
       <section className="container-site py-16 md:py-24">
         <p className="text-walnut">What we do</p>
         <h1 className="mt-3 max-w-[20ch] text-[clamp(2.6rem,5vw,4.5rem)]">
-          One house for everything your space needs.
+          Everything your space needs.
         </h1>
-        <p className="mt-6 max-w-[56ch] text-lg text-forest/75">
-          Every category below is measured, supplied and installed by our own team. Filter by one of
-          the five elements, or browse the whole list.
+        <p className="mt-6 max-w-[58ch] text-lg text-forest/75">
+          Curtains, flooring, wallpaper, mattresses, rugs, furniture and more — every category
+          measured, supplied and fitted by our own team. Filter by one of the five elements, or
+          browse the full range.
         </p>
 
         <div className="mt-12">

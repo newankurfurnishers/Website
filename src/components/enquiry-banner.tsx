@@ -6,8 +6,8 @@ import { telHref, whatsappHref } from "@/lib/format";
 // contact form (a category or sector name) and the WhatsApp message.
 export async function EnquiryBanner({
   interest,
-  heading = "Let's create your dream space together.",
-  body = "Tell us about your space. We'll visit, measure and suggest options that fit your budget.",
+  heading = "Let's bring your space to life.",
+  body = "Tell us about your space. We'll visit, measure and suggest options that suit your budget.",
 }: {
   interest?: string;
   heading?: string;

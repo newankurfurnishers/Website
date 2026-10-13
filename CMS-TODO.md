@@ -17,7 +17,7 @@ Status legend: ⬜ not wired · ✅ wired into CMS
   - CMS plan: a `page_sections` row for the heading/quote/intro/CTA, and a new
     structure for the timeline (year/title/text) — likely a dedicated section
     with `items`, or a small `about_timeline` table.
-  - Copy still to be finalized (accuracy of 2002 / regions / 2024+ claims).
+  - Copy is now grounded (1984 founding, growth across Bihar, end-to-end fitting).
 
 - ⬜ **Philosophy page — Five Elements of Nature** (`src/app/(site)/philosophy/page.tsx`)
   - Hardcoded from the brand pitch deck: the intro (eyebrow/heading/lead), the
