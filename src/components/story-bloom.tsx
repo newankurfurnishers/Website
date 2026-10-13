@@ -40,7 +40,7 @@ export function StoryBloom({
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.fillStyle = "#1f221e";
+      ctx.fillStyle = "#e6d9c6";
       ctx.fillRect(0, 0, w, h);
       mouse.x = w / 2;
       mouse.y = h;
@@ -54,7 +54,7 @@ export function StoryBloom({
       ctx.moveTo(x, y);
       ctx.lineTo(endX, endY);
       const fade = 1 - depth / maxDepth;
-      ctx.strokeStyle = `rgba(208,180,149,${fade * 0.75})`;
+      ctx.strokeStyle = `rgba(41,45,40,${fade * 0.6})`;
       ctx.lineWidth = Math.max(0.4, 1.6 - (depth / maxDepth) * 1.2);
       ctx.stroke();
 
@@ -69,7 +69,7 @@ export function StoryBloom({
     let grown = 0;
 
     const frame = () => {
-      ctx.fillStyle = "rgba(31,34,30,0.16)"; // forest-deep trail fade
+      ctx.fillStyle = "rgba(230,217,198,0.16)"; // stone trail fade
       ctx.fillRect(0, 0, w, h);
       drawBranch(w / 2, h, -Math.PI / 2, h / 5, 0, grown);
       if (grown < maxDepth) grown += 0.03;
@@ -89,7 +89,7 @@ export function StoryBloom({
     resize();
     if (reduced) {
       // Draw a single full-grown tree, no animation or interaction.
-      ctx.fillStyle = "#1f221e";
+      ctx.fillStyle = "#e6d9c6";
       ctx.fillRect(0, 0, w, h);
       drawBranch(w / 2, h, -Math.PI / 2, h / 5, 0, maxDepth);
     } else {
@@ -110,14 +110,14 @@ export function StoryBloom({
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-[88svh] items-center justify-center overflow-hidden bg-forest-deep py-24"
+      className="relative flex min-h-[88svh] items-center justify-center overflow-hidden bg-stone py-24"
     >
       <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-forest-deep via-forest-deep/20 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-stone via-stone/20 to-transparent" />
 
       <div className="container-site relative z-10 text-center">
         <p
-          className="story-up inline-flex items-center gap-2 rounded-full border border-sand/20 bg-sand/10 px-4 py-1.5 text-sm text-sand/85 backdrop-blur-sm"
+          className="story-up inline-flex items-center gap-2 rounded-full border border-forest/20 bg-stone/60 px-4 py-1.5 text-sm text-forest/80 backdrop-blur-sm"
           style={{ animationDelay: "1.1s" }}
         >
           <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
@@ -128,18 +128,18 @@ export function StoryBloom({
           {eyebrow || "Rooted in Patna since 1984"}
         </p>
         <h2
-          className="story-up mx-auto mt-6 max-w-[20ch] text-[clamp(2.4rem,5vw,4.5rem)] leading-[1.05] text-sand"
+          className="story-up mx-auto mt-6 max-w-[20ch] text-[clamp(2.4rem,5vw,4.5rem)] leading-[1.05] text-forest"
           style={{ animationDelay: "1.25s" }}
         >
           {heading}
         </h2>
         {body && (
-          <p className="story-up mx-auto mt-6 max-w-[52ch] text-lg text-sand/75" style={{ animationDelay: "1.4s" }}>
+          <p className="story-up mx-auto mt-6 max-w-[52ch] text-lg text-forest/75" style={{ animationDelay: "1.4s" }}>
             {body}
           </p>
         )}
         <div className="story-up mt-10" style={{ animationDelay: "1.55s" }}>
-          <Link href={ctaHref} className="btn btn-solid">
+          <Link href={ctaHref} className="btn btn-dark">
             {ctaLabel}
             <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6" />
