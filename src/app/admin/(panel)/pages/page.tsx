@@ -3,7 +3,15 @@ import { type AdminSection, getAdminSections } from "@/lib/admin/data";
 
 export const metadata = { title: "Pages" };
 
-const PAGE_NAMES: Record<string, string> = { home: "Home page", about: "About page" };
+const PAGE_NAMES: Record<string, string> = {
+  home: "Home page",
+  about: "About page",
+  philosophy: "Philosophy page",
+  expertise: "Expertise page",
+  products: "Products page",
+  blog: "Blog page",
+  contact: "Contact page",
+};
 
 export default async function PagesAdminPage() {
   const sections = await getAdminSections();

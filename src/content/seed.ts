@@ -21,6 +21,8 @@ export const settings: SiteSettings = {
     "Patna's trusted home furnishing house since 1984. Curtains, blinds, flooring, wallpaper, mattresses, rugs and furniture — measured and fitted by our own team, for homes and businesses alike.",
 };
 
+const elImg = (slug: string) => `/images/elements/${slug}.webp`;
+
 export const elements: NatureElement[] = [
   {
     slug: "earth",
@@ -29,9 +31,18 @@ export const elements: NatureElement[] = [
     tagline: "What holds you",
     description:
       "Grounding materials underfoot and around you: floors of wood and stone-like vinyl, rugs that soften a room, and furniture built to stay.",
-    image_url: img("wooden-flooring"),
-    image_alt: "Warm wooden flooring beside a rustic console",
+    image_url: elImg("earth"),
+    image_alt: "Earthy room with a stone sculpture, terracotta leather sofa and an autumn tree",
     sort: 1,
+    subtitle: "Foundation, Craft, Permanence",
+    lead: null,
+    principle:
+      "Earth grounds us — materiality, authenticity, the honest expression of wood, stone, clay and natural fibre.",
+    in_design: "Visible joinery. Tactile surfaces. Furniture that reveals its construction. Textiles that age beautifully.",
+    story_label: "The craft story",
+    story_text:
+      "Our mastery lies in understanding materials deeply — how wood moves, how leather develops a patina, how upholstery holds its form across decades. This is not mass production. It is stewardship.",
+    visual_language: "Warm ochre, terracotta and deep browns. Textures that invite touch. Compositions that feel rooted and stable.",
   },
   {
     slug: "water",
@@ -40,9 +51,18 @@ export const elements: NatureElement[] = [
     tagline: "What restores you",
     description:
       "Rest and renewal: mattresses, bed linen and bath textiles chosen for softness, freshness and a good night's sleep.",
-    image_url: img("bed-bath-towels"),
-    image_alt: "Folded soft towels with hydrangea on fresh bed linen",
+    image_url: elImg("water"),
+    image_alt: "Seaside setting with a glass table, sheer glassware and the ocean beyond",
     sort: 2,
+    subtitle: "Flow, Adaptability, Softness",
+    lead: null,
+    principle:
+      "Water flows and adapts to its container — gentle and powerful. In living spaces: flexibility, comfort, the softness that makes a house a home.",
+    in_design: "Curved forms. Layered textiles. Upholstery that invites you to sink in. Lighting that shifts through the day.",
+    story_label: "The comfort story",
+    story_text:
+      "Luxury is not hardness or severity. It is the moment you sit into a perfectly proportioned sofa, the weight of a linen curtain, the temperature of a room at dusk.",
+    visual_language: "Soft blues, greens and greys. Flowing lines. Generous proportions. Spaces that breathe.",
   },
   {
     slug: "fire",
@@ -51,9 +71,19 @@ export const elements: NatureElement[] = [
     tagline: "What warms you",
     description:
       "Warmth and glow: lighting, rich upholstery and the decorative accents that give a room its personality.",
-    image_url: img("fabric-lamps"),
-    image_alt: "Three pleated fabric pendant lamps glowing warmly",
+    image_url: elImg("fire"),
+    image_alt: "Coral arched alcove with a fire and a cream curved sofa",
     sort: 3,
+    subtitle: "Warmth, Character, Energy",
+    lead: null,
+    principle:
+      "Fire brings warmth and character — the spark of personality in a space. Without it, even the most beautiful room feels cold.",
+    in_design:
+      "Accent colours that surprise. Lighting that creates drama and intimacy. Materials with depth — velvet, brass, dark wood. Compositions with a point of view.",
+    story_label: "The personality story",
+    story_text:
+      "A space should reflect the people who live in it. Our role is to provide the palette, the forms and the materials — tools that let you express your own warmth. We design for living, not for magazines.",
+    visual_language: "Deep jewel tones. Warm metallics. Dramatic contrasts. Moments of unexpected richness.",
   },
   {
     slug: "air",
@@ -62,9 +92,17 @@ export const elements: NatureElement[] = [
     tagline: "What lets you breathe",
     description:
       "Light and air in balance: sheer and blackout curtains, blinds and motorised window systems that shape how a room feels through the day.",
-    image_url: img("curtains-sheer"),
-    image_alt: "Floor-length sheer curtains filtering daylight into a living room",
+    image_url: elImg("air"),
+    image_alt: "Soft pink and blue scene with clouds, an arch and a boucle stool",
     sort: 4,
+    subtitle: "Light, Openness, Freedom",
+    lead: "Luxury today is not about abundance — it is about clarity. Every piece in a space should earn its place.",
+    principle:
+      "Air is invisible but essential: the space between objects, the light that defines form, the freedom to move and breathe.",
+    in_design: "Generous spacing. Minimal visual clutter. Furniture scaled to human proportion. Negative space as a design element.",
+    story_label: null,
+    story_text: null,
+    visual_language: "Light, neutral backgrounds. Breathing room. Clarity of form. Simplicity that reveals complexity.",
   },
   {
     slug: "space",
@@ -73,9 +111,19 @@ export const elements: NatureElement[] = [
     tagline: "What surrounds you",
     description:
       "The envelope of a room: wallpapers, wall panelling, glass films and the finishes that define the space itself.",
-    image_url: img("art-decor-lounge"),
-    image_alt: "Textured concrete wall with bronze sconces above a fluted cabinet",
+    image_url: elImg("space"),
+    image_alt: "Beige fluted arch with a palm, a coral disc and a terracotta shell chair",
     sort: 5,
+    subtitle: "Architecture, Possibility, Balance",
+    lead: null,
+    principle:
+      "Space is the container — the fifth element that holds all others in balance. Architecture and interior design are inseparable.",
+    in_design:
+      "Furniture as architecture. Spatial planning that considers sightlines, acoustics and movement. Collections that work as a system, not isolated pieces.",
+    story_label: "Systems thinking",
+    story_text:
+      "We do not design individual products; we design environments. A sofa is never separate from the wall behind it, the light above it, the rug beneath it. Every element is in conversation.",
+    visual_language: "Architectural clarity. Balanced compositions. Spatial depth. Harmony across scales.",
   },
 ];
 
@@ -355,5 +403,67 @@ export const sections: PageSection[] = [
     body: "For us, a home is not just a place but a feeling — where the presence of loved ones becomes comfort, where relationships breathe, and where dreams take shape.\n\nFor over forty years, New Ankur Furnishers has tried to fill every home with warmth, belonging and memory, so that your home doesn't only look beautiful but becomes a part of your story.\n\nYour trust and your affection are our greatest strength. Come, let us shape the home you have in mind, together.",
     cta_label: "Santosh Kumar Agrawal", // signature line
     image_url: img("sector-home"), image_alt: "Bright living room with panelled walls",
+  },
+  {
+    page: "about", key: "heritage", label: "About: heritage intro", sort: 4,
+    eyebrow: "Our story",
+    heading: "Rooted in Patna, since 1984.",
+    body: "In 1984, we set out with a singular conviction: that a home is not furnished with objects, but with memories, textures and enduring grace.",
+    cta_label: "Santosh Kumar Agrawal", // quote attribution
+    image_url: img("wooden-furniture"), image_alt: "Master craftsman and apprentice at the workbench",
+  },
+  {
+    page: "about", key: "pillars", label: "About: what we stand for + timeline", sort: 5,
+    heading: "What we stand for.",
+    body: "From a single shop on S.P. Verma Road, New Ankur Furnishers has grown into a trusted name for furnishings and interiors across Patna and Bihar — for homes, hotels, hospitals, offices and institutions.",
+    items: [
+      { title: "1984 — Where it began", text: "New Ankur Furnishers opened on S.P. Verma Road in Patna, with a simple belief: honest materials, measured well and fitted properly." },
+      { title: "Over the years — Beyond the home", text: "The same craft grew from living rooms to hotels, hospitals, schools and offices across Bihar." },
+      { title: "Today — Start to finish", text: "From the first site visit and measurement to the final fitting, every project is handled end to end by our own team." },
+    ],
+  },
+  {
+    page: "about", key: "concierge", label: "About: consultation CTA", sort: 6,
+    eyebrow: "Visit or get in touch",
+    heading: "Planning a project? Let's start with a conversation.",
+    cta_label: "Make an enquiry", cta_href: "/contact",
+  },
+  {
+    page: "philosophy", key: "intro", label: "Philosophy: intro", sort: 1,
+    eyebrow: "The brand idea",
+    heading: "Five Elements of Nature",
+    body: "Rooted in Indian philosophy and design tradition, the five elements are our organizing intelligence — a lens for every material we choose, every proportion we draw and every room we compose.",
+  },
+  {
+    page: "philosophy", key: "framework", label: "Philosophy: framework cards", sort: 2,
+    items: [
+      { title: "A timeless framework", text: "Rooted in Indian philosophy and design tradition. Each element is a principle of balance, harmony and human flourishing — not a material or an aesthetic." },
+      { title: "A complete philosophy", text: "Together, the five elements form a coherent lens through which every design decision, every material choice and every spatial composition is made." },
+      { title: "Not a gimmick", text: "This is how we think, how we create, how we live. It is the organizing intelligence of everything we do." },
+    ],
+  },
+  {
+    page: "expertise", key: "intro", label: "Expertise: intro", sort: 1,
+    eyebrow: "Where we work",
+    heading: "From quiet homes to busy hospitals.",
+    body: "For over forty years we've furnished every kind of space across Patna and Bihar — homes, hotels, hospitals, schools and offices — measuring, supplying and installing with the same care, whether it's a single bedroom or an entire hospital wing.",
+  },
+  {
+    page: "products", key: "intro", label: "Products: intro", sort: 1,
+    eyebrow: "What we do",
+    heading: "Everything your space needs.",
+    body: "Curtains, flooring, wallpaper, mattresses, rugs, furniture and more — every category measured, supplied and fitted by our own team. Filter by one of the five elements, or browse the full range.",
+  },
+  {
+    page: "blog", key: "intro", label: "Blog: intro", sort: 1,
+    eyebrow: "Journal",
+    heading: "Notes on furnishing a home you love.",
+    body: "Practical advice from four decades of furnishing homes and businesses in Patna — from choosing curtains for the summer heat to picking the right floor for a busy clinic.",
+  },
+  {
+    page: "contact", key: "intro", label: "Contact: intro", sort: 1,
+    eyebrow: "Contact",
+    heading: "Let's talk about your space.",
+    body: "Tell us what you're planning. We'll visit, measure and suggest options that suit your space and your budget — then supply and fit it with our own team.",
   },
 ];

@@ -56,10 +56,15 @@ export async function getElements(): Promise<NatureElement[]> {
   if (!hasSupabase) return seed.elements;
   const { data, error } = await createPublicClient()
     .from("elements")
-    .select("slug,name,sanskrit,tagline,description,image_url,image_alt,sort")
+    .select(
+      "slug,name,sanskrit,tagline,description,image_url,image_alt,sort," +
+        "subtitle,lead,principle,in_design,story_label,story_text,visual_language",
+    )
     .order("sort");
-  if (error) throw error;
-  return (data ?? []) as NatureElement[];
+  // The long-form columns may not exist yet (before the CMS upgrade SQL is run);
+  // fall back to the bundled content so the site keeps working.
+  if (error || !data) return seed.elements;
+  return data as unknown as NatureElement[];
 }
 
 export async function getSectors(): Promise<Sector[]> {

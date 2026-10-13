@@ -4,7 +4,7 @@ import Link from "next/link";
 import { EnquiryBanner } from "@/components/enquiry-banner";
 import { getSections, getSettings, getTestimonials } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
-import type { SiteSettings } from "@/content/types";
+import type { Item, PageSection, SiteSettings } from "@/content/types";
 
 export function generateMetadata(): Metadata {
   return pageMetadata({
@@ -23,6 +23,7 @@ export default async function AboutPage() {
     getTestimonials(),
   ]);
   const { intro, why, founder } = s;
+  const heritage = { heritage: s.heritage, pillars: s.pillars, concierge: s.concierge };
 
   return (
     <>
@@ -52,7 +53,7 @@ export default async function AboutPage() {
         </section>
       )}
 
-      <HeritageSection settings={settings} />
+      <HeritageSection sections={heritage} settings={settings} />
 
       {why?.items && why.items.length > 0 && (
         <section className="bg-forest text-sand">
@@ -120,41 +121,39 @@ export default async function AboutPage() {
   );
 }
 
-// The founder photo is still a grayscale placeholder — replace with a real
-// workshop / founder image via admin → Media.
-const timeline = [
-  {
-    year: "1984",
-    title: "Where it began",
-    text: "New Ankur Furnishers opened on S.P. Verma Road in Patna, with a simple belief: honest materials, measured well and fitted properly.",
-  },
-  {
-    year: "Over the years",
-    title: "Beyond the home",
-    text: "The same craft grew from living rooms to hotels, hospitals, schools and offices across Bihar.",
-  },
-  {
-    year: "Today",
-    title: "Start to finish",
-    text: "From the first site visit and measurement to the final fitting, every project is handled end to end by our own team.",
-  },
+const TIMELINE_FALLBACK: Item[] = [
+  { title: "1984 — Where it began", text: "New Ankur Furnishers opened on S.P. Verma Road in Patna, with a simple belief: honest materials, measured well and fitted properly." },
+  { title: "Over the years — Beyond the home", text: "The same craft grew from living rooms to hotels, hospitals, schools and offices across Bihar." },
+  { title: "Today — Start to finish", text: "From the first site visit and measurement to the final fitting, every project is handled end to end by our own team." },
 ];
 
-function HeritageSection({ settings }: { settings: SiteSettings }) {
+function HeritageSection({
+  sections,
+  settings,
+}: {
+  sections: { heritage?: PageSection; pillars?: PageSection; concierge?: PageSection };
+  settings: SiteSettings;
+}) {
+  const { heritage, pillars, concierge } = sections;
+  const timeline = pillars?.items?.length ? pillars.items : TIMELINE_FALLBACK;
+
   return (
     <section className="bg-gradient-to-b from-[#f6efe8] to-[#f1e8dd]">
       <div className="container-site grid gap-14 py-16 md:py-24 lg:grid-cols-2 lg:gap-20">
         {/* Left: heritage + founder quote */}
         <div>
-          <p className="text-[0.72rem] font-medium uppercase tracking-[0.22em] text-caramel">Our story</p>
-          <h2 className="mt-5 text-[clamp(2.4rem,4.6vw,4rem)] leading-[1.05]">Rooted in Patna, since 1984.</h2>
+          <p className="text-[0.72rem] font-medium uppercase tracking-[0.22em] text-caramel">
+            {heritage?.eyebrow ?? "Our story"}
+          </p>
+          <h2 className="mt-5 text-[clamp(2.4rem,4.6vw,4rem)] leading-[1.05]">
+            {heritage?.heading ?? "Rooted in Patna, since 1984."}
+          </h2>
 
           <figure className="mt-10 rounded-[1.5rem] bg-white p-5 shadow-[0_1px_0_rgba(41,45,40,0.05),0_24px_60px_-30px_rgba(41,45,40,0.35)]">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[1rem] bg-stone">
-              {/* Placeholder — replace with a real founder / workshop photo via Media */}
               <Image
-                src="/images/brochure/wooden-furniture.webp"
-                alt="Master craftsman and apprentice at the workbench"
+                src={heritage?.image_url ?? "/images/brochure/wooden-furniture.webp"}
+                alt={heritage?.image_alt ?? "Master craftsman and apprentice at the workbench"}
                 fill
                 sizes="(min-width: 1024px) 40vw, 90vw"
                 className="object-cover grayscale"
@@ -165,11 +164,11 @@ function HeritageSection({ settings }: { settings: SiteSettings }) {
                 &rdquo;
               </span>
               <blockquote className="mt-1 font-display text-[1.35rem] italic leading-snug text-forest/85">
-                In 1984, we set out with a singular conviction: that a home is not furnished with objects, but with
-                memories, textures, and enduring grace.
+                {heritage?.body ??
+                  "In 1984, we set out with a singular conviction: that a home is not furnished with objects, but with memories, textures and enduring grace."}
               </blockquote>
               <figcaption className="mt-5">
-                <p className="font-medium text-forest">Santosh Kumar Agrawal</p>
+                <p className="font-medium text-forest">{heritage?.cta_label ?? "Santosh Kumar Agrawal"}</p>
                 <p className="text-sm text-caramel">Founder, {settings.business_name}</p>
               </figcaption>
             </div>
@@ -178,37 +177,40 @@ function HeritageSection({ settings }: { settings: SiteSettings }) {
 
         {/* Right: pillars + timeline + concierge */}
         <div className="lg:pt-2">
-          <h2 className="text-[clamp(2rem,3.6vw,3rem)]">What we stand for.</h2>
+          <h2 className="text-[clamp(2rem,3.6vw,3rem)]">{pillars?.heading ?? "What we stand for."}</h2>
           <p className="mt-5 max-w-[48ch] text-lg text-forest/75">
-            From a single shop on S.P. Verma Road, {settings.business_name} has grown into a trusted
-            name for furnishings and interiors across Patna and Bihar — for homes, hotels, hospitals,
-            offices and institutions.
+            {pillars?.body ??
+              `From a single shop on S.P. Verma Road, ${settings.business_name} has grown into a trusted name for furnishings and interiors across Patna and Bihar — for homes, hotels, hospitals, offices and institutions.`}
           </p>
 
           <ol className="mt-12 space-y-8">
-            {timeline.map((t) => (
-              <li key={t.year}>
-                <p className="font-display text-caramel">{t.year}</p>
-                <h3 className="mt-1 font-display text-xl text-forest">{t.title}</h3>
-                <p className="mt-2 max-w-[50ch] text-forest/70">{t.text}</p>
-              </li>
-            ))}
+            {timeline.map((t) => {
+              const [era, ...rest] = t.title.split(" — ");
+              const title = rest.length ? rest.join(" — ") : "";
+              return (
+                <li key={t.title}>
+                  <p className="font-display text-caramel">{era}</p>
+                  {title && <h3 className="mt-1 font-display text-xl text-forest">{title}</h3>}
+                  {t.text && <p className="mt-2 max-w-[50ch] text-forest/70">{t.text}</p>}
+                </li>
+              );
+            })}
           </ol>
 
           <div className="mt-14 flex flex-col gap-5 rounded-[1.25rem] bg-white/70 p-7 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-[0.68rem] font-medium uppercase tracking-[0.2em] text-caramel">
-                Visit or get in touch
+                {concierge?.eyebrow ?? "Visit or get in touch"}
               </p>
               <p className="mt-2 max-w-[30ch] font-display text-[1.4rem] leading-snug text-forest">
-                Planning a project? Let&rsquo;s start with a conversation.
+                {concierge?.heading ?? "Planning a project? Let's start with a conversation."}
               </p>
             </div>
             <Link
-              href="/contact"
+              href={concierge?.cta_href ?? "/contact"}
               className="shrink-0 self-start bg-forest-deep px-6 py-4 text-center text-xs font-medium uppercase tracking-[0.18em] text-[#f4eee7] transition-colors hover:bg-forest sm:self-auto"
             >
-              Make an enquiry
+              {concierge?.cta_label ?? "Make an enquiry"}
             </Link>
           </div>
         </div>

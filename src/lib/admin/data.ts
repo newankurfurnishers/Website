@@ -178,22 +178,31 @@ export type AdminElement = {
   image_url: string | null;
   image_alt: string | null;
   sort: number;
+  subtitle: string | null;
+  lead: string | null;
+  principle: string | null;
+  in_design: string | null;
+  story_label: string | null;
+  story_text: string | null;
+  visual_language: string | null;
 };
 
-const ELEMENT_SELECT = "id,slug,name,sanskrit,tagline,description,image_url,image_alt,sort";
+const ELEMENT_SELECT =
+  "id,slug,name,sanskrit,tagline,description,image_url,image_alt,sort," +
+  "subtitle,lead,principle,in_design,story_label,story_text,visual_language";
 
 export async function getAdminElements(): Promise<AdminElement[]> {
   const supabase = await createSessionClient();
   const { data, error } = await supabase.from("elements").select(ELEMENT_SELECT).order("sort");
   if (error) throw error;
-  return (data ?? []) as AdminElement[];
+  return (data ?? []) as unknown as AdminElement[];
 }
 
 export async function getAdminElement(id: string): Promise<AdminElement | null> {
   const supabase = await createSessionClient();
   const { data, error } = await supabase.from("elements").select(ELEMENT_SELECT).eq("id", id).maybeSingle();
   if (error) throw error;
-  return (data as AdminElement | null) ?? null;
+  return (data as unknown as AdminElement | null) ?? null;
 }
 
 // --- Pages (page_sections) -------------------------------------------------

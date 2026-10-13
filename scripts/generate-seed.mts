@@ -22,7 +22,7 @@ on conflict (id) do nothing;`,
 
 for (const e of elements) {
   out.push(
-    `insert into public.elements (slug, name, sanskrit, tagline, description, image_url, image_alt, sort) values (${[e.slug, e.name, e.sanskrit, e.tagline, e.description, e.image_url, e.image_alt].map(q).join(", ")}, ${e.sort}) on conflict (slug) do nothing;`,
+    `insert into public.elements (slug, name, sanskrit, tagline, description, image_url, image_alt, sort, subtitle, lead, principle, in_design, story_label, story_text, visual_language) values (${[e.slug, e.name, e.sanskrit, e.tagline, e.description, e.image_url, e.image_alt].map(q).join(", ")}, ${e.sort}, ${[e.subtitle, e.lead, e.principle, e.in_design, e.story_label, e.story_text, e.visual_language].map(q).join(", ")}) on conflict (slug) do nothing;`,
   );
 }
 out.push("");
@@ -75,13 +75,29 @@ console.log("Wrote supabase/seed.sql");
 // seed.sql only inserts (on conflict do nothing), so run this to refresh text.
 // ---------------------------------------------------------------------------
 const upd: string[] = [
-  "-- Refresh launch copy on an already-seeded database. Safe to re-run.",
+  "-- Sync CMS content to an already-seeded database. Safe to re-run.",
   "-- Run in Supabase → SQL Editor after editing src/content/seed.ts.",
   "begin;",
+  "",
+  "-- Philosophy long-form columns on elements (added once; no-op if present)",
+  "alter table public.elements",
+  "  add column if not exists subtitle text,",
+  "  add column if not exists lead text,",
+  "  add column if not exists principle text,",
+  "  add column if not exists in_design text,",
+  "  add column if not exists story_label text,",
+  "  add column if not exists story_text text,",
+  "  add column if not exists visual_language text;",
   "",
   `update public.site_settings set seo_title = ${q(settings.seo_title)}, seo_description = ${q(settings.seo_description)}, tagline = ${q(settings.tagline)} where id = 1;`,
   "",
 ];
+for (const e of elements) {
+  upd.push(
+    `update public.elements set name = ${q(e.name)}, sanskrit = ${q(e.sanskrit)}, tagline = ${q(e.tagline)}, description = ${q(e.description)}, image_url = ${q(e.image_url)}, image_alt = ${q(e.image_alt)}, subtitle = ${q(e.subtitle)}, lead = ${q(e.lead)}, principle = ${q(e.principle)}, in_design = ${q(e.in_design)}, story_label = ${q(e.story_label)}, story_text = ${q(e.story_text)}, visual_language = ${q(e.visual_language)} where slug = ${q(e.slug)};`,
+  );
+}
+upd.push("");
 for (const s of sectors) {
   upd.push(
     `update public.sectors set name = ${q(s.name)}, tagline = ${q(s.tagline)}, summary = ${q(s.summary)}, highlights = ${json(s.highlights)} where slug = ${q(s.slug)};`,
@@ -94,9 +110,10 @@ for (const cat of categories) {
   );
 }
 upd.push("");
+// Upsert page sections (handles both new sections and refreshed copy).
 for (const p of sections) {
   upd.push(
-    `update public.page_sections set eyebrow = ${q(p.eyebrow)}, heading = ${q(p.heading)}, body = ${q(p.body)}, cta_label = ${q(p.cta_label)}, items = ${json(p.items)} where page = ${q(p.page)} and key = ${q(p.key)};`,
+    `insert into public.page_sections (page, key, label, eyebrow, heading, body, image_url, image_alt, cta_label, cta_href, items, sort) values (${[p.page, p.key, p.label, p.eyebrow, p.heading, p.body, p.image_url, p.image_alt, p.cta_label, p.cta_href].map(q).join(", ")}, ${json(p.items)}, ${p.sort}) on conflict (page, key) do update set label = excluded.label, eyebrow = excluded.eyebrow, heading = excluded.heading, body = excluded.body, image_url = excluded.image_url, image_alt = excluded.image_alt, cta_label = excluded.cta_label, cta_href = excluded.cta_href, items = excluded.items;`,
   );
 }
 upd.push("", "commit;", "");

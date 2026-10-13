@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ContactForm } from "@/components/contact-form";
-import { getCategories, getSectors, getSettings } from "@/lib/content";
+import { getCategories, getSections, getSectors, getSettings } from "@/lib/content";
 import { telHref, whatsappHref } from "@/lib/format";
 import { pageMetadata } from "@/lib/seo";
 
@@ -16,21 +16,25 @@ export function generateMetadata(): Metadata {
 }
 
 export default async function ContactPage() {
-  const [settings, categories, sectors] = await Promise.all([
+  const [settings, categories, sectors, sections] = await Promise.all([
     getSettings(),
     getCategories(),
     getSectors(),
+    getSections("contact"),
   ]);
   const interests = [...categories.map((c) => c.name), ...sectors.map((s) => s.name)];
+  const intro = sections.intro;
 
   return (
     <section className="container-site py-16 md:py-24">
       <div className="max-w-2xl">
-        <p className="text-walnut">Contact</p>
-        <h1 className="mt-3 text-[clamp(2.4rem,4.5vw,4rem)]">Let&rsquo;s talk about your space.</h1>
+        <p className="text-walnut">{intro?.eyebrow ?? "Contact"}</p>
+        <h1 className="mt-3 text-[clamp(2.4rem,4.5vw,4rem)]">
+          {intro?.heading ?? "Let’s talk about your space."}
+        </h1>
         <p className="mt-6 text-lg text-forest/75">
-          Tell us what you&rsquo;re planning. We&rsquo;ll visit, measure and suggest options that fit
-          your budget — then supply and fit it with our own team.
+          {intro?.body ??
+            "Tell us what you're planning. We'll visit, measure and suggest options that suit your space and your budget — then supply and fit it with our own team."}
         </p>
       </div>
 

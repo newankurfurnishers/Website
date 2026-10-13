@@ -5,15 +5,6 @@ import Link from "next/link";
 import { useState, useSyncExternalStore } from "react";
 import type { NatureElement } from "@/content/types";
 
-// The curated element imagery (shared with the /philosophy page).
-const ELEMENT_IMAGE: Record<string, string> = {
-  earth: "/images/elements/earth.webp",
-  water: "/images/elements/water.webp",
-  fire: "/images/elements/fire.webp",
-  air: "/images/elements/air.webp",
-  space: "/images/elements/space.webp",
-};
-
 function usePrefersReducedMotion() {
   return useSyncExternalStore(
     (cb) => {
@@ -52,7 +43,7 @@ export function PhilosophyAccordion({ elements }: { elements: NatureElement[] })
               className="group block h-full w-full"
             >
               <Image
-                src={ELEMENT_IMAGE[el.slug] ?? el.image_url}
+                src={el.image_url}
                 alt={el.image_alt ?? el.name}
                 fill
                 sizes="(min-width: 1024px) 40vw, 90vw"

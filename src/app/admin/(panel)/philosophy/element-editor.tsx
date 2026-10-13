@@ -17,6 +17,13 @@ export function ElementEditor({ element }: { element: AdminElement }) {
   const [tagline, setTagline] = useState(element.tagline ?? "");
   const [description, setDescription] = useState(element.description ?? "");
   const [image, setImage] = useState<Img>({ url: element.image_url ?? "", alt: element.image_alt ?? "" });
+  const [subtitle, setSubtitle] = useState(element.subtitle ?? "");
+  const [lead, setLead] = useState(element.lead ?? "");
+  const [principle, setPrinciple] = useState(element.principle ?? "");
+  const [inDesign, setInDesign] = useState(element.in_design ?? "");
+  const [storyLabel, setStoryLabel] = useState(element.story_label ?? "");
+  const [storyText, setStoryText] = useState(element.story_text ?? "");
+  const [visual, setVisual] = useState(element.visual_language ?? "");
 
   const save = () => {
     const input: ElementInput = {
@@ -27,6 +34,13 @@ export function ElementEditor({ element }: { element: AdminElement }) {
       description,
       image_url: image.url,
       image_alt: image.alt,
+      subtitle,
+      lead,
+      principle,
+      in_design: inDesign,
+      story_label: storyLabel,
+      story_text: storyText,
+      visual_language: visual,
     };
     startTransition(async () => {
       const res = await saveElement(input);
@@ -53,8 +67,33 @@ export function ElementEditor({ element }: { element: AdminElement }) {
         <Labeled label="Tagline" hint="e.g. What holds you">
           <input value={tagline} onChange={(e) => setTagline(e.target.value)} className="admin-input" />
         </Labeled>
-        <Labeled label="Description">
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={4} className="admin-input" />
+        <Labeled label="Description" hint="Short summary (used for SEO and internally).">
+          <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} className="admin-input" />
+        </Labeled>
+      </section>
+
+      <section className="grid gap-4 rounded-xl bg-white p-6">
+        <h2 className="text-lg">Philosophy page</h2>
+        <Labeled label="Subtitle" hint="e.g. Foundation, Craft, Permanence">
+          <input value={subtitle} onChange={(e) => setSubtitle(e.target.value)} className="admin-input" />
+        </Labeled>
+        <Labeled label="Lead line (optional)" hint="An italic opening line above the blocks.">
+          <textarea value={lead} onChange={(e) => setLead(e.target.value)} rows={2} className="admin-input" />
+        </Labeled>
+        <Labeled label="The principle">
+          <textarea value={principle} onChange={(e) => setPrinciple(e.target.value)} rows={3} className="admin-input" />
+        </Labeled>
+        <Labeled label="In design">
+          <textarea value={inDesign} onChange={(e) => setInDesign(e.target.value)} rows={3} className="admin-input" />
+        </Labeled>
+        <Labeled label="Story heading (optional)" hint="e.g. The craft story">
+          <input value={storyLabel} onChange={(e) => setStoryLabel(e.target.value)} className="admin-input" />
+        </Labeled>
+        <Labeled label="Story text (optional)">
+          <textarea value={storyText} onChange={(e) => setStoryText(e.target.value)} rows={3} className="admin-input" />
+        </Labeled>
+        <Labeled label="Visual language">
+          <textarea value={visual} onChange={(e) => setVisual(e.target.value)} rows={3} className="admin-input" />
         </Labeled>
       </section>
 

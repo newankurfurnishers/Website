@@ -41,6 +41,14 @@ export type NatureElement = {
   image_url: string;
   image_alt: string;
   sort: number;
+  // Philosophy page long-form content
+  subtitle: string | null;
+  lead: string | null;
+  principle: string | null;
+  in_design: string | null;
+  story_label: string | null;
+  story_text: string | null;
+  visual_language: string | null;
 };
 
 export type Sector = {

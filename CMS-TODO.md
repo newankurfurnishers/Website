@@ -1,39 +1,34 @@
 # CMS wiring backlog
 
-Content added/changed as hardcoded during the design pass. At the end, wire each
-item into the admin CMS so staff can edit it (migration/`types.ts`/`content.ts`/
-`seed.ts` + the relevant admin editor + populate the live Supabase rows).
-
 Status legend: ⬜ not wired · ✅ wired into CMS
 
-## Pending
+All redesign content is now wired into the CMS. The site reads from Supabase
+with the bundled content as a fallback, so it renders correctly whether or not
+the database has been upgraded yet.
 
-- ⬜ **About — Heritage section** (`src/app/(site)/about/page.tsx`)
-  - Hardcoded: "Heritage Chronicle" eyebrow + heading, founder quote + name/role,
-    "The Pillars of Our Atelier" intro, the 1984/2002/2024+ timeline (year +
-    title + text), and the "Bespoke Architectural Concierge" CTA.
-  - Also: founder/workshop image is a grayscale placeholder
-    (`/images/brochure/wooden-furniture.webp`) — needs a real photo.
-  - CMS plan: a `page_sections` row for the heading/quote/intro/CTA, and a new
-    structure for the timeline (year/title/text) — likely a dedicated section
-    with `items`, or a small `about_timeline` table.
-  - Copy is now grounded (1984 founding, growth across Bihar, end-to-end fitting).
+## To activate editing on the live site
 
-- ⬜ **Philosophy page — Five Elements of Nature** (`src/app/(site)/philosophy/page.tsx`)
-  - Hardcoded from the brand pitch deck: the intro (eyebrow/heading/lead), the
-    three framework cards (timeless framework / complete philosophy / not a
-    gimmick), and per-element content (sanskrit, name, subtitle, optional lead,
-    principle, in-design, optional story label+text, visual language).
-  - New images: `public/images/elements/{earth,water,fire,air,space}.webp`
-    (extracted from the deck — AI-rendered concept imagery, not photos of real
-    projects).
-  - "In this element" product links still come from live categories (editable).
-  - CMS plan: extend the `elements` table (add subtitle, principle, in_design,
-    story_label, story_text, visual_language, lead, a second image) or a related
-    structure; add a framework-cards store; swap in these fields in the admin
-    Philosophy editor. The home-page philosophy accordion
-    (`src/components/philosophy-accordion.tsx`) reads the `elements` rows for
-    name/sanskrit/tagline but uses the hardcoded `public/images/elements/*.webp`
-    images via a slug→image map — wire those images in at the same time.
+Run **`supabase/content-update.sql`** once in Supabase → SQL Editor. It:
+- adds the long-form Philosophy columns to the `elements` table,
+- refreshes all copy, and
+- inserts the new page sections (Philosophy intro/framework, About heritage,
+  and the Expertise/Products/Blog/Contact intros).
 
-<!-- Append new items below as changes are made. -->
+Until it runs, the site shows the same content from the bundled fallback; after
+it runs, staff can edit everything in the admin.
+
+## Done
+
+- ✅ **Philosophy page** — intro + framework → *Pages → Philosophy*; each
+  element's subtitle / lead / principle / in-design / story / visual language +
+  image → *Philosophy* editor (new `elements` columns).
+- ✅ **About heritage** — "Our story" heading + quote, "What we stand for" +
+  timeline, and the consultation CTA → *Pages → About* (heritage / pillars /
+  concierge sections). Founder photo is still a placeholder — upload a real one
+  via *Media*.
+- ✅ **Page intros** — Expertise, Products, Blog, Contact → *Pages*.
+- ✅ **Home philosophy accordion** — now uses the element images from the CMS.
+
+## Intentionally left in code
+
+- Legal pages (Privacy, Terms, Thank-you) — static boilerplate.
