@@ -65,7 +65,7 @@ export async function SiteFooter() {
         </nav>
 
         <nav aria-label="Company">
-          <h2 className="font-display text-xl text-sand">New Ankur</h2>
+          <h2 className="font-display text-xl text-sand">New Ankur Furnishers</h2>
           <ul className="mt-4 space-y-2 text-sand/75">
             {[...nav, { href: "/contact", label: "Contact us" }].map((item) => (
               <li key={item.href}>
