@@ -214,6 +214,29 @@
   }
 }
 
+/* Story section: staggered fade-up once the fractal has started growing */
+@keyframes story-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.story-up {
+  opacity: 0;
+  animation: story-up 0.8s var(--ease-out-soft) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .story-up {
+    opacity: 1;
+    animation: none;
+    animation-delay: 0ms !important;
+  }
+}
+
 /* Expertise gallery cards: scroll-reveal entrance (motion only) */
 @layer components {
   .exp-card {

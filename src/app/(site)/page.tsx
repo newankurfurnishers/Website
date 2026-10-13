@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ExpertiseGallery } from "@/components/expertise-gallery";
 import { PhilosophyAccordion } from "@/components/philosophy-accordion";
 import { ProductCarousel } from "@/components/product-carousel";
+import { StoryBloom } from "@/components/story-bloom";
 import { getCategories, getElements, getSections, getSectors, getSettings } from "@/lib/content";
 import { telHref, whatsappHref } from "@/lib/format";
 
@@ -52,17 +53,7 @@ export default async function HomePage() {
       </section>
 
       {/* Story */}
-      {story && (
-        <section className="container-site grid gap-6 py-20 md:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] md:gap-16 md:py-28">
-          <h2 className="text-[clamp(2.1rem,4vw,3.4rem)]">{story.heading}</h2>
-          <div className="md:pt-3">
-            {story.body && <p className="max-w-[46ch] text-lg text-forest/80">{story.body}</p>}
-            <Link href="/about" className="link-underline mt-6 inline-block font-medium">
-              Our story
-            </Link>
-          </div>
-        </section>
-      )}
+      {story && <StoryBloom eyebrow={story.eyebrow} heading={story.heading} body={story.body} />}
 
       {/* Philosophy: the five elements, drawn like the brand's colour card */}
       <section className="bg-forest text-sand">
