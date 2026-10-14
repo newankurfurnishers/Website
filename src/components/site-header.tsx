@@ -27,7 +27,7 @@ export function SiteHeader() {
     <header
       className={`sticky top-0 z-40 border-b transition-colors duration-300 ${
         solid
-          ? "border-forest/10 bg-stone/95 backdrop-blur supports-[backdrop-filter]:bg-stone/80"
+          ? "border-forest/10 bg-stone shadow-[0_6px_20px_-12px_rgba(31,34,30,0.35)]"
           : "border-transparent bg-transparent"
       }`}
     >
@@ -37,13 +37,24 @@ export function SiteHeader() {
         </Link>
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-8 text-[0.98rem]">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="py-2 text-forest/80 transition-colors hover:text-forest">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {nav.map((item) => {
+              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={`relative py-2 transition-colors after:absolute after:inset-x-0 after:bottom-1 after:h-px after:origin-left after:bg-forest after:transition-transform after:duration-300 ${
+                      active
+                        ? "text-forest after:scale-x-100"
+                        : "text-forest/80 after:scale-x-0 hover:text-forest hover:after:scale-x-100"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
         <div className="flex items-center gap-3">

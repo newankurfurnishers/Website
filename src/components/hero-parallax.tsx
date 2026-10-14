@@ -64,9 +64,11 @@ export function HeroParallax({ eyebrow, heading, body, ctaLabel, ctaHref, imageU
     };
   }, []);
 
-  const words = (heading ?? "").trim().split(" ");
-  const accent = words.length > 1 ? words.pop() : null;
-  const lead = words.join(" ");
+  // Break the headline as: first word / middle words / accent (last word).
+  const words = (heading ?? "").trim().split(/\s+/).filter(Boolean);
+  const accent = words.length > 1 ? words[words.length - 1] : null;
+  const first = words.length > 1 ? words[0] : words.join(" ");
+  const middle = words.slice(1, Math.max(1, words.length - 1)).join(" ");
 
   return (
     <section ref={sectionRef} className="relative isolate -mt-[4.5rem] overflow-hidden bg-stone">
@@ -80,7 +82,7 @@ export function HeroParallax({ eyebrow, heading, body, ctaLabel, ctaHref, imageU
 
         {/* Legibility scrims: lighten the left for the text, a soft band up top for the floating nav */}
         <div className="absolute inset-0 bg-gradient-to-r from-stone/75 via-stone/30 to-transparent lg:from-stone/60 lg:via-stone/10" />
-        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-stone/70 via-stone/20 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-stone/90 via-stone/45 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-stone/35 to-transparent" />
 
         {/* Content */}
@@ -90,10 +92,16 @@ export function HeroParallax({ eyebrow, heading, body, ctaLabel, ctaHref, imageU
               <p className="text-xs uppercase tracking-[0.3em] text-walnut/70 sm:text-sm">{eyebrow}</p>
             )}
             <h1 className="font-hero mt-6 text-[clamp(3.25rem,6.6vw,6rem)] font-medium leading-[0.96] text-walnut">
-              {lead}
+              {first}
+              {middle && (
+                <>
+                  <br />
+                  {middle}
+                </>
+              )}
               {accent && (
                 <>
-                  {lead && <br />}
+                  <br />
                   <em className="italic text-[#a35d35]">{accent}</em>
                 </>
               )}
