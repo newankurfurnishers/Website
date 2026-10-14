@@ -264,3 +264,24 @@
 .hero-settle {
   animation: settle 1.6s var(--ease-out-soft) both;
 }
+
+/* Hero content entrance (motion only) */
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-rise {
+  animation: heroRise 1s var(--ease-out-soft) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise {
+    opacity: 1;
+    animation: none;
+  }
+}

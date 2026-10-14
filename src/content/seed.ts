@@ -342,7 +342,7 @@ export const sections: PageSection[] = [
     eyebrow: "Patna · Since 1984",
     heading: "Your home, your story.",
     body: "Curtains, floors, walls and furniture — chosen with you and fitted by our own team, the way we've furnished homes and businesses across Patna for over forty years.",
-    image_url: img("hero-bedroom"), image_alt: "Sunlit bedroom with a rust velvet bed and sheer curtains",
+    image_url: "/images/hero/living-arch.webp", image_alt: "A calm living room with a curved sage sofa and a live-edge table, open to a sunset valley through an arch",
     cta_label: "Explore products", cta_href: "/products",
   },
   {

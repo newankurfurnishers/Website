@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ExpertiseGallery } from "@/components/expertise-gallery";
+import { HeroParallax } from "@/components/hero-parallax";
 import { PhilosophyAccordion } from "@/components/philosophy-accordion";
 import { ProductCarousel } from "@/components/product-carousel";
 import { StoryBloom } from "@/components/story-bloom";
@@ -20,37 +21,15 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-forest text-sand">
-        <div className="grid lg:min-h-[calc(100dvh-4.5rem)] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-          <div className="relative order-1 h-[52svh] overflow-hidden lg:order-2 lg:h-auto">
-            {hero?.image_url && (
-              <Image
-                src={hero.image_url}
-                alt={hero.image_alt ?? ""}
-                fill
-                priority
-                sizes="(min-width: 1024px) 58vw, 100vw"
-                className="hero-settle object-cover"
-              />
-            )}
-          </div>
-          <div className="order-2 flex flex-col justify-center px-5 py-14 sm:px-10 lg:order-1 lg:py-20 lg:pl-[max(2.5rem,calc((100vw-82rem)/2+2.5rem))] lg:pr-14">
-            {hero?.eyebrow && <p className="text-sand/70">{hero.eyebrow}</p>}
-            <h1 className="mt-4 text-[clamp(3rem,5.4vw,5.25rem)] text-sand">{hero?.heading}</h1>
-            {hero?.body && <p className="mt-6 max-w-[34ch] text-lg text-sand/80">{hero.body}</p>}
-            <div className="mt-10 flex flex-wrap gap-3">
-              {hero?.cta_href && (
-                <Link href={hero.cta_href} className="btn btn-solid">
-                  {hero.cta_label}
-                </Link>
-              )}
-              <Link href="/contact" className="btn btn-line text-sand">
-                Make an enquiry
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroParallax
+        eyebrow={hero?.eyebrow}
+        heading={hero?.heading}
+        body={hero?.body}
+        ctaLabel={hero?.cta_label}
+        ctaHref={hero?.cta_href}
+        imageUrl={hero?.image_url}
+        imageAlt={hero?.image_alt}
+      />
 
       {/* Story */}
       {story && <StoryBloom eyebrow={story.eyebrow} heading={story.heading} body={story.body} />}
