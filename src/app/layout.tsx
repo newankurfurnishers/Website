@@ -4,13 +4,6 @@ import localFont from "next/font/local";
 import { getSettings } from "@/lib/content";
 import "./globals.css";
 
-const marcellus = localFont({
-  src: "../fonts/marcellus-latin-400-normal.woff2",
-  weight: "400",
-  variable: "--font-marcellus",
-  display: "swap",
-});
-
 const jost = localFont({
   src: [
     { path: "../fonts/jost-latin-wght-normal.woff2", style: "normal", weight: "300 700" },
@@ -44,7 +37,7 @@ export const viewport: Viewport = { themeColor: "#292d28" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-IN" className={`${marcellus.variable} ${jost.variable} ${fraunces.variable} antialiased`}>
+    <html lang="en-IN" className={`${jost.variable} ${fraunces.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">
         {children}
         <Analytics />

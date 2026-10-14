@@ -31,6 +31,15 @@ export default async function HomePage() {
         imageAlt={hero?.image_alt}
       />
 
+      {/* Plain-language summary line — context for readers and search engines */}
+      <section className="border-b border-forest/10 bg-stone">
+        <p className="container-site py-7 text-center text-[0.95rem] leading-relaxed text-walnut/75">
+          Complete <strong className="font-medium text-walnut">home furnishings and interiors in Patna</strong> since
+          1984 — curtains, flooring, wallpaper, blinds and furniture, measured, supplied and fitted by our own team for
+          homes, hotels, hospitals, offices and institutions across Bihar.
+        </p>
+      </section>
+
       {/* Story */}
       {story && <StoryBloom eyebrow={story.eyebrow} heading={story.heading} body={story.body} />}
 

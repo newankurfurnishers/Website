@@ -15,7 +15,7 @@
   --color-stone: #e6d9c6; /* sand lifted, for long-reading surfaces */
   --color-ink: #292d28;
 
-  --font-display: var(--font-marcellus), "Marcellus", Georgia, serif;
+  --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
   --font-sans: var(--font-jost), "Jost", system-ui, sans-serif;
 
   --radius-pill: 999px;

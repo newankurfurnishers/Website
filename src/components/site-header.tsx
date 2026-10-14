@@ -25,7 +25,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-40 border-b transition-colors duration-300 ${
+      className={`sticky top-0 z-40 transform-gpu border-b backface-hidden transition-colors duration-300 ${
         solid
           ? "border-forest/10 bg-stone shadow-[0_6px_20px_-12px_rgba(31,34,30,0.35)]"
           : "border-transparent bg-transparent"
