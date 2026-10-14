@@ -54,7 +54,7 @@ export function StoryBloom({
       ctx.moveTo(x, y);
       ctx.lineTo(endX, endY);
       const fade = 1 - depth / maxDepth;
-      ctx.strokeStyle = `rgba(41,45,40,${fade * 0.6})`;
+      ctx.strokeStyle = `rgba(140,150,80,${fade * 0.72})`;
       ctx.lineWidth = Math.max(0.4, 1.6 - (depth / maxDepth) * 1.2);
       ctx.stroke();
 

@@ -80,10 +80,10 @@ export function HeroParallax({ eyebrow, heading, body, ctaLabel, ctaHref, imageU
           )}
         </div>
 
-        {/* Legibility scrims: lighten the left for the text, a soft band up top for the floating nav */}
-        <div className="absolute inset-0 bg-gradient-to-r from-stone/75 via-stone/30 to-transparent lg:from-stone/60 lg:via-stone/10" />
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-stone/90 via-stone/45 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-stone/35 to-transparent" />
+        {/* Light legibility scrims — kept subtle so the photo stays vivid */}
+        <div className="absolute inset-0 bg-gradient-to-r from-stone/45 via-stone/5 to-transparent lg:from-stone/30 lg:via-transparent" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-stone/55 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-stone/15 to-transparent" />
 
         {/* Content */}
         <div className="relative flex min-h-[100svh] flex-col justify-center px-5 pb-16 pt-[7rem] sm:px-10 lg:pb-24 lg:pt-[8rem] lg:pl-[max(2.5rem,calc((100vw-82rem)/2+2.5rem))] lg:pr-14">
@@ -91,7 +91,7 @@ export function HeroParallax({ eyebrow, heading, body, ctaLabel, ctaHref, imageU
             {eyebrow && (
               <p className="text-xs uppercase tracking-[0.3em] text-walnut/70 sm:text-sm">{eyebrow}</p>
             )}
-            <h1 className="font-hero mt-6 text-[clamp(3.25rem,6.6vw,6rem)] font-medium leading-[0.96] text-walnut">
+            <h1 className="font-hero mt-5 text-[clamp(2.75rem,5.2vw,5rem)] font-normal leading-[1.02] text-walnut">
               {first}
               {middle && (
                 <>
