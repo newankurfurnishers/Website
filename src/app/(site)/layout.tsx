@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SiteJsonLd } from "@/components/site-jsonld";
@@ -15,7 +16,10 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
         Skip to content
       </a>
       <SiteJsonLd />
-      <SiteHeader />
+      {/* Header reads the pathname (dynamic), so it streams in behind a height-reserving fallback */}
+      <Suspense fallback={<div className="h-[4.5rem]" aria-hidden />}>
+        <SiteHeader />
+      </Suspense>
       <main id="main" className="flex-1">
         {children}
       </main>

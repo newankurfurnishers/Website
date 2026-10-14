@@ -69,8 +69,8 @@ export function HeroParallax({ eyebrow, heading, body, ctaLabel, ctaHref, imageU
   const lead = words.join(" ");
 
   return (
-    <section ref={sectionRef} className="relative isolate overflow-hidden bg-stone">
-      <div className="relative min-h-[calc(100svh-4.5rem)]">
+    <section ref={sectionRef} className="relative isolate -mt-[4.5rem] overflow-hidden bg-stone">
+      <div className="relative min-h-[100svh]">
         {/* Parallax image layer — oversized so the drift never reveals an edge */}
         <div ref={layerRef} className="absolute inset-x-0 -top-[10%] h-[120%] will-change-transform">
           {imageUrl && (
@@ -78,34 +78,48 @@ export function HeroParallax({ eyebrow, heading, body, ctaLabel, ctaHref, imageU
           )}
         </div>
 
-        {/* Legibility scrim: lighten the left for the text, let the scene breathe on the right */}
-        <div className="absolute inset-0 bg-gradient-to-r from-stone/70 via-stone/25 to-transparent lg:from-stone/55 lg:via-stone/10" />
+        {/* Legibility scrims: lighten the left for the text, a soft band up top for the floating nav */}
+        <div className="absolute inset-0 bg-gradient-to-r from-stone/75 via-stone/30 to-transparent lg:from-stone/60 lg:via-stone/10" />
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-stone/70 via-stone/20 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-stone/35 to-transparent" />
 
         {/* Content */}
-        <div className="relative flex min-h-[calc(100svh-4.5rem)] flex-col justify-center px-5 py-16 sm:px-10 lg:py-24 lg:pl-[max(2.5rem,calc((100vw-82rem)/2+2.5rem))] lg:pr-14">
-          <div className="hero-rise max-w-[42rem]">
+        <div className="relative flex min-h-[100svh] flex-col justify-center px-5 pb-16 pt-[7rem] sm:px-10 lg:pb-24 lg:pt-[8rem] lg:pl-[max(2.5rem,calc((100vw-82rem)/2+2.5rem))] lg:pr-14">
+          <div className="hero-rise max-w-[40rem]">
             {eyebrow && (
-              <p className="text-xs uppercase tracking-[0.3em] text-walnut sm:text-sm">{eyebrow}</p>
+              <p className="text-xs uppercase tracking-[0.3em] text-walnut/70 sm:text-sm">{eyebrow}</p>
             )}
-            <h1 className="mt-5 text-[clamp(3rem,6.2vw,5.75rem)] leading-[0.98] text-forest">
+            <h1 className="font-hero mt-6 text-[clamp(3.25rem,6.6vw,6rem)] font-medium leading-[0.96] text-walnut">
               {lead}
               {accent && (
                 <>
-                  {lead && " "}
-                  <em className="italic text-caramel">{accent}</em>
+                  {lead && <br />}
+                  <em className="italic text-[#a35d35]">{accent}</em>
                 </>
               )}
             </h1>
-            {body && <p className="mt-6 max-w-[36ch] text-lg text-forest/75">{body}</p>}
-            <div className="mt-10 flex flex-wrap items-center gap-3">
+            {body && <p className="mt-7 max-w-[32ch] text-lg leading-relaxed text-walnut/80">{body}</p>}
+
+            <div className="mt-11 flex flex-wrap items-center gap-x-9 gap-y-5">
               {ctaHref && (
-                <Link href={ctaHref} className="btn btn-dark">
-                  {ctaLabel}
+                <Link
+                  href={ctaHref}
+                  className="group inline-flex items-center gap-4 text-xs uppercase tracking-[0.28em] text-walnut"
+                >
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-walnut/40 transition-colors duration-300 group-hover:border-walnut group-hover:bg-walnut group-hover:text-stone">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                  {ctaLabel ?? "Explore"}
                 </Link>
               )}
-              <Link href="/contact" className="btn btn-line text-forest">
-                Make an enquiry
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-3 text-xs uppercase tracking-[0.28em] text-walnut/90"
+              >
+                Enquire
+                <span className="h-px w-6 bg-walnut/50 transition-all duration-300 group-hover:w-10 group-hover:bg-walnut" />
               </Link>
             </div>
           </div>

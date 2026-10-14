@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getCategories, getSettings } from "@/lib/content";
 import { telHref, whatsappHref } from "@/lib/format";
-import { nav } from "./site-header";
+import { nav } from "./nav";
 
 export async function SiteFooter() {
   "use cache";

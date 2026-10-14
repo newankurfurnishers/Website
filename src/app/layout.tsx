@@ -20,6 +20,16 @@ const jost = localFont({
   display: "swap",
 });
 
+// Display serif for the hero — warm, high-contrast, with a flowing italic.
+const fraunces = localFont({
+  src: [
+    { path: "../fonts/fraunces-latin-wght-normal.woff2", style: "normal", weight: "300 700" },
+    { path: "../fonts/fraunces-latin-wght-italic.woff2", style: "italic", weight: "300 700" },
+  ],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSettings();
   return {
@@ -34,7 +44,7 @@ export const viewport: Viewport = { themeColor: "#292d28" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-IN" className={`${marcellus.variable} ${jost.variable} antialiased`}>
+    <html lang="en-IN" className={`${marcellus.variable} ${jost.variable} ${fraunces.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">
         {children}
         <Analytics />

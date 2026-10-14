@@ -265,6 +265,11 @@
   animation: settle 1.6s var(--ease-out-soft) both;
 }
 
+/* Display serif for the hero */
+.font-hero {
+  font-family: var(--font-fraunces), "Fraunces", Georgia, serif;
+}
+
 /* Hero content entrance (motion only) */
 @keyframes heroRise {
   from {
